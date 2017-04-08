@@ -1,0 +1,35 @@
+
+.conatiner {
+  width: 100%;
+}
+
+.display-images {
+  width: 70%;
+}
+
+
+.hexagon {
+  width: 400px;
+  height: 200px;
+  background: red;
+  transform: rotate(120deg);
+  display: inline-block;
+  float: right;
+  overflow: hidden;
+  visibility: hidden;
+}
+.hexagon-inside {
+  width: 100%;
+  height: 100%;
+  background: green;
+  transform: rotate(-60deg);
+  overflow: hidden;
+}
+.hexagon-image {
+  width: 100%;
+  height: 100%;
+  background: blue;
+  transform: rotate(-60deg);
+  overflow: hidden;
+  visibility: visible;
+}
