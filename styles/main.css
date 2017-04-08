@@ -1,20 +1,28 @@
 
 .conatiner {
   width: 100%;
+  height: 1000px;
+  border: 1px solid grey;
 }
-
+.display-discovery {
+  width: 65%;
+  margin: 0;
+  display: inline;
+}
 .display-images {
-  width: 70%;
+  width: 65%;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  float: left;
+  margin: 0 auto;
+  border: 1px solid grey;
 }
-
-
 .hexagon {
   width: 400px;
   height: 200px;
-  background: red;
+  position: relative;
   transform: rotate(120deg);
-  display: inline-block;
-  float: right;
   overflow: hidden;
   visibility: hidden;
 }
@@ -32,4 +40,12 @@
   transform: rotate(-60deg);
   overflow: hidden;
   visibility: visible;
+}
+
+.display-song-panel {
+  width: 34%;
+  height: 800px;
+  border: 1px solid grey;
+  float: right;
+  display: inline;
 }

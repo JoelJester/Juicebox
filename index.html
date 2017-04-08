@@ -7,34 +7,49 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
-    <script href="app.js"></script>
+    <script src="app.js"></script>
   </head>
   <body>
   <!--  -->
   <div class="container">
-    <div class="display-images js-hex-images">
+    <div class="display-discovery">
+      <ul class="display-images js-hex-images">
+        <li class="hexagon">
+          <div class="hexagon-inside">
+            <div class="hexagon-image"></div>
+          </div>
+        </li>
+        <li class="hexagon">
+          <div class="hexagon-inside">
+            <div class="hexagon-image"></div>
+          </div>
+        </li>
+        <li class="hexagon">
+          <div class="hexagon-inside">
+            <div class="hexagon-image"></div>
+          </div>
+        </li>
+      </ul> <!-- closes display-images which contains all of the hex photos -->
+    </div> <!-- closes the display-discovery div which holds the hex images -->
+    <!-- this panel will display the current song information including; cover art, artist and track names. // future features; track progress bar -->
+    <div class="display-song-panel js-song-panel">
+      <div class="display-track">
 
-      <div class="hexagon">
-        <div class="hexagon-inside">
-          <div class="hexagon-image"></div>
-        </div>
+
       </div>
-      <div class="hexagon">
-        <div class="hexagon-inside">
-          <div class="hexagon-image"></div>
-        </div>
+      <div class="song-controls js-song-controls">
+        <button class="play controls">Play</button>
+        <button class="stop controls">Stop</button>
+        <button class="skip controls">Skip</button>
+        <button class="mute controls">Mute</button>
+        <button class="previous controls">Previous</button>
       </div>
-      <div class="hexagon">
-        <div class="hexagon-inside">
-          <div class="hexagon-image"></div>
-        </div>
-      </div>
-    </div> <!-- closes display-images div which contains all of the hex photos -->
+    </div>
+
+    <!-- -->
+
 
   </div> <!-- closes top container div -->
-
-  <!-- -->
-  <!-- -->
 
   <!-- consider creating a fixed position footer with controls and display of current song information -->
 
