@@ -41,7 +41,15 @@
   overflow: hidden;
   visibility: visible;
 }
-
+.display-song-panel {
+  position: fixed;
+}
+.display-track {
+  width: 90%;
+  height: 300px;
+  border: 1px solid grey;
+  margin: 5px auto;
+}
 .display-song-panel {
   width: 34%;
   height: 800px;
