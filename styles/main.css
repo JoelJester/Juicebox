@@ -6,16 +6,17 @@
 }
 .display-discovery {
   width: 65%;
-  margin: 0;
   display: inline;
 }
 .display-images {
   width: 65%;
+  height: 1000px;
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
   float: left;
-  margin: 0 auto;
+  margin: 20px auto;
+  margin-left: 100px;
   border: 1px solid grey;
 }
 .hexagon {
@@ -41,8 +42,14 @@
   overflow: hidden;
   visibility: visible;
 }
+.display-images li {
+  transform: rotate(-15deg);
+  margin-left: -170px;
+}
 .display-song-panel {
   position: fixed;
+  right: 0;
+  z-index: 1;
 }
 .display-track {
   width: 90%;
@@ -57,3 +64,47 @@
   float: right;
   display: inline;
 }
+
+/*
+footer element, status bar with background color
+*/
+.status-bar {
+  width: 60%;
+  height: 20px;
+  border: 1px solid grey;
+  border-radius: 50px;
+  margin-left: 20px;
+  position: fixed;
+  bottom: 20px;
+}
+.status-bar-hide {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  background-color: white;
+  margin-top: -20px;
+  float: right;
+  position: relative;
+}
+.status-bar-hide-display {
+  width: 35px;
+  height: 60px;
+  float: left;
+  background-image: url('../assets/images/juiceBox01.jpg');
+  position: absolute;
+  bottom: -10px;
+  transform: rotate(30deg);
+}
+.status-bar-color {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  background-image: url('../assets/images/rainbobarpegs.jpg');
+}
+
+
+
+
+
+
+/*  */

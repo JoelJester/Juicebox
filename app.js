@@ -19,9 +19,15 @@ var Juicebox = {
       mute: $(".js-song-controls .mute"),
       // this.pause: $(".js-song-controls pause"),
     };
-    this.addSong();
+    this.addSong("./assets/audio/gcThaMessage.mp3");
     this.listen();
+    this.change(this.songs[0]);
+
+    // this.render();  ? will this need to take a playlist as an argument ?
   },
+  // create a display function to render the html elements of the playlist
+  // target the ul and add li elements with image, song info and a clickable
+  // feature to add songs to a playlist
 
   listen: function() {
     this.dom.play.on("click", this.play.bind(this));
@@ -33,20 +39,21 @@ var Juicebox = {
     }.bind(this));
   },
 
+  render: function() {
+
+  },
+
   play: function(song) {
-    console.log(this);
-    // this.currentSong = song;
-    currentSong.play();
+    this.currentSong.play();
   },
   pause: function() {
-    console.log(this);
-    console.log("Juicebox is pauseing");
+    this.currentSong.pause();
   },
   stop: function() {
-    currentSong.stop();
+    this.currentSong.stop();
   },
   change: function(song) {
-    console.log("Juicebox is changeing");
+    this.currentSong = song;
   },
   shuffle: function() {
     // currentSong = songs[Math.floor.rand(songs.length);
@@ -59,8 +66,9 @@ var Juicebox = {
     // change(currentSong);
   },
   setVolume: function(volume) {
-    volumeLevel = volume;
-    console.log("Volume is " + volumeLevel);
+    volumeLevel = (volume / 100);
+    this.volume = volumeLevel;
+    console.log(this + volumeLevel);
   },
   addSong: function(path) {
     this.songs.push(new Song(path));
@@ -69,12 +77,22 @@ var Juicebox = {
 };
 
 class Song {
-  constructor(file, title, artist, art, link) {
-
-  }
-
+  constructor(file) {
+    this.file = file;
+    this.audio = new Audio(file);
+  };
+  play() {
+    this.audio.play();
+  };
+  pause() {
+    this.audio.pause();
+  };
+  stop() {
+    this.audio.pause();
+    this.audio.currentTime = 0;
+  };
 }
-
+// params for song object; file, title, artist, artwork
 
 
 $(document).ready(function() {
