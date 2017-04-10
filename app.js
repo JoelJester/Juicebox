@@ -11,12 +11,13 @@ var Juicebox = {
   // initialization function
   start: function() {
     this.dom = {
+      pause: $(".js-song-controls .pause"),
       play: $(".js-song-controls .play"),
       stop: $(".js-song-controls .stop"),
       skip: $(".js-song-controls .skip"),
       back: $(".js-song-controls .back"),
       mute: $(".js-song-controls .mute"),
-      // this.pause: $(".js-song-controls pause"),
+      statusBar: $(".js-status-hide")[0],
     };
     this.addSong("./assets/audio/gcThaMessage.mp3");
     this.listen();
@@ -32,6 +33,7 @@ var Juicebox = {
     this.dom.play.on("click", this.play.bind(this));
     this.dom.stop.on("click", this.stop.bind(this));
     this.dom.skip.on("click", this.skip.bind(this));
+    this.dom.pause.on("click", this.pause.bind(this));
     // this.dom.back.on("click", this.back.bind(this));
     this.dom.mute.on("click", function() {
       this.setVolume(0);
@@ -39,38 +41,43 @@ var Juicebox = {
   },
 
   render: function() {
+    var songDuration = this.currentSong.audio.duration;
 
     statusBar = function() {
-    var songDuration = this.currentSong.audio.duration;
     var songCTime = this.currentSong.audio.currentTime;
     var completePercent = ( 1 - (songCTime / songDuration))*100;
-    var statusBar = $(".js-status-hide")[0];
     if ( completePercent > 0.005 && this.isPlaying === true ) {
-        statusBar.style.width = "" + completePercent + "%";
-        console.log(completePercent);
+        this.dom.statusBar.style.width = "" + completePercent + "%";
       } else {
         clearInterval(interval);
-        statusBar.style.width = "" + completePercent + "%";
+        this.dom.statusBar.style.width = "" + completePercent + "%";
       }
     }.bind(this);
-
-    // wrap this in some logic to check first if song is playing and then set an escape for when song is done or new song starts
     var interval = setInterval(statusBar, 30);
   },
 
-
   play: function(song) {
+    if (this.isPlaying === false ) {
     this.currentSong.play();
     this.isPlaying = true;
+    this.dom.play.html("Pause");
     this.render();
+  } else {
+    this.currentSong.pause();
+    this.isPlaying = false;
+    this.dom.play.html("Play");
+  }
   },
   pause: function() {
+    console.log(pause);
     this.currentSong.pause();
   },
   stop: function() {
     this.currentSong.stop();
     this.isPlaying = false;
     this.render();
+    this.dom.play.html("Play");
+    // this.playPause("pause");
   },
   change: function(song) {
     this.currentSong = song;
@@ -87,8 +94,8 @@ var Juicebox = {
   },
   setVolume: function(volume) {
     volumeLevel = (volume / 100);
-    this.volume = volumeLevel;
-    console.log(this + volumeLevel);
+
+    this.currentSong.audio.volume = volumeLevel;
   },
   addSong: function(path) {
     this.songs.push(new Song(path));
