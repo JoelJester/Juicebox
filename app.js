@@ -41,10 +41,23 @@ var Juicebox = {
 
   render: function() {
 
+    statusBar = function() {
+    var songDuration = this.currentSong.audio.duration;
+    var songCTime = this.currentSong.audio.currentTime;
+    var completePercent = ( 1 - (songCTime / songDuration))*100;
+    var statusBar = $(".js-status-hide")[0];
+    statusBar.style.width = "" + completePercent + "%";
+    }.bind(this);
+    // wrap this in some logic to check first if song is playing and then set an escape for when song is done or new song starts
+    setInterval(statusBar, 10);
   },
+
 
   play: function(song) {
     this.currentSong.play();
+    this.render();
+    // console.log(this.currentSong.audio.duration);
+    // console.log(this.currentSong.audio.currentTime);
   },
   pause: function() {
     this.currentSong.pause();
