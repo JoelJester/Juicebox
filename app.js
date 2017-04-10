@@ -1,5 +1,4 @@
 
-
 // Juicebox app
 
 var Juicebox = {
@@ -46,24 +45,32 @@ var Juicebox = {
     var songCTime = this.currentSong.audio.currentTime;
     var completePercent = ( 1 - (songCTime / songDuration))*100;
     var statusBar = $(".js-status-hide")[0];
-    statusBar.style.width = "" + completePercent + "%";
+    if ( completePercent > 0.005 && this.isPlaying === true ) {
+        statusBar.style.width = "" + completePercent + "%";
+        console.log(completePercent);
+      } else {
+        clearInterval(interval);
+        statusBar.style.width = "" + completePercent + "%";
+      }
     }.bind(this);
+
     // wrap this in some logic to check first if song is playing and then set an escape for when song is done or new song starts
-    setInterval(statusBar, 10);
+    var interval = setInterval(statusBar, 30);
   },
 
 
   play: function(song) {
     this.currentSong.play();
+    this.isPlaying = true;
     this.render();
-    // console.log(this.currentSong.audio.duration);
-    // console.log(this.currentSong.audio.currentTime);
   },
   pause: function() {
     this.currentSong.pause();
   },
   stop: function() {
     this.currentSong.stop();
+    this.isPlaying = false;
+    this.render();
   },
   change: function(song) {
     this.currentSong = song;
@@ -113,3 +120,23 @@ $(document).ready(function() {
   // debugger;
   console.log("app linked");
 });
+
+// to do list:
+// connect logic to status bar, toggle isPlaying t/f and check within the sb function
+// toggle between play & pause
+
+
+// ****** Someday
+// make status bar interactive and clickable, advance track.
+
+
+
+
+
+
+
+
+
+
+
+// end of program
