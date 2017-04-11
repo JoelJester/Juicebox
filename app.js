@@ -6,16 +6,16 @@ var Juicebox = {
   currentSong: null,
   dom: {},
   isPlaying: false,
-  volumeLevel: 100,
+  volumeLevel: .5,
+  isMute: false,
 
   // initialization function
   start: function() {
     this.dom = {
-      pause: $(".js-song-controls .pause"),
+      back: $(".js-song-controls .back"),
       play: $(".js-song-controls .play"),
       stop: $(".js-song-controls .stop"),
       skip: $(".js-song-controls .skip"),
-      back: $(".js-song-controls .back"),
       mute: $(".js-song-controls .mute"),
       statusBar: $(".js-status-hide")[0],
     };
@@ -28,16 +28,17 @@ var Juicebox = {
   // create a display function to render the html elements of the playlist
   // target the ul and add li elements with image, song info and a clickable
   // feature to add songs to a playlist
+  //
+  // Will also create both a library and a playlist variable to organize, display and play files
 
   listen: function() {
+
+    this.dom.back.on("click", this.back.bind(this));
     this.dom.play.on("click", this.play.bind(this));
     this.dom.stop.on("click", this.stop.bind(this));
     this.dom.skip.on("click", this.skip.bind(this));
-    this.dom.pause.on("click", this.pause.bind(this));
-    // this.dom.back.on("click", this.back.bind(this));
-    this.dom.mute.on("click", function() {
-      this.setVolume(0);
-    }.bind(this));
+    // this.dom.pause.on("click", this.pause.bind(this));
+    this.dom.mute.on("click", this.setVolume.bind(this));
   },
 
   render: function() {
@@ -80,6 +81,9 @@ var Juicebox = {
     // this.playPause("pause");
   },
   change: function(song) {
+    // sort a way for change to identify which element is calling in order to handle functionality
+    // change will handle any action that changes or resets the track; back, skip, shuffle, etc.
+
     this.currentSong = song;
   },
   shuffle: function() {
@@ -92,10 +96,28 @@ var Juicebox = {
     // currentSong = songs[i+1];
     // change(currentSong);
   },
-  setVolume: function(volume) {
-    volumeLevel = (volume / 100);
+  back: function() {
+    if ( this.isPlaying === true ) {
+      this.currentSong.stop();
+      this.currentSong.play();
+    }
+  },
+  setVolume: function() {
+    var saveVolume = 1;
 
-    this.currentSong.audio.volume = volumeLevel;
+    if ( this.isMute === false ){
+      saveVolume = this.volumeLevel;
+      this.volumeLevel = 0;
+      this.currentSong.audio.volume = this.volumeLevel;
+      this.dom.mute.html("Un-mute");
+      this.isMute = true;
+      console.log(saveVolume);
+    } else if ( this.isMute === true ) {
+      this.volumeLevel = saveVolume;
+      this.currentSong.audio.volume = this.volumeLevel;
+      this.dom.mute.html("Mute");
+      this.isMute = false;
+    }
   },
   addSong: function(path) {
     this.songs.push(new Song(path));
@@ -118,6 +140,7 @@ class Song {
     this.audio.pause();
     this.audio.currentTime = 0;
   };
+  // ?build a reset song function on thw song object?
 }
 // params for song object; file, title, artist, artwork
 
