@@ -2,7 +2,8 @@
 // Juicebox app
 
 var Juicebox = {
-  songs: [],
+  library: [],
+  playlist: [],
   currentSong: null,
   dom: {},
   isPlaying: false,
@@ -17,17 +18,17 @@ var Juicebox = {
       stop: $(".js-song-controls .stop"),
       skip: $(".js-song-controls .skip"),
       mute: $(".js-song-controls .mute"),
-      statusBar: $(".js-status-hide")[0],
+      progressBar: $(".js-progress-hide")[0],
     };
     this.addSong("./assets/audio/gcThaMessage.mp3");
     this.listen();
-    this.change(this.songs[0]);
+    this.change(this.playlist[0]);
 
     // this.render();  ? will this need to take a playlist as an argument ?
   },
   // create a display function to render the html elements of the playlist
   // target the ul and add li elements with image, song info and a clickable
-  // feature to add songs to a playlist
+  // feature to add individual songs to a playlist
   //
   // Will also create both a library and a playlist variable to organize, display and play files
 
@@ -44,17 +45,17 @@ var Juicebox = {
   render: function() {
     var songDuration = this.currentSong.audio.duration;
 
-    statusBar = function() {
+    progressBar = function() {
     var songCTime = this.currentSong.audio.currentTime;
     var completePercent = ( 1 - (songCTime / songDuration))*100;
     if ( completePercent > 0.005 && this.isPlaying === true ) {
-        this.dom.statusBar.style.width = "" + completePercent + "%";
+        this.dom.progressBar.style.width = "" + completePercent + "%";
       } else {
         clearInterval(interval);
-        this.dom.statusBar.style.width = "" + completePercent + "%";
+        this.dom.progressBar.style.width = "" + completePercent + "%";
       }
     }.bind(this);
-    var interval = setInterval(statusBar, 30);
+    var interval = setInterval(progressBar, 30);
   },
 
   play: function(song) {
@@ -87,13 +88,13 @@ var Juicebox = {
     this.currentSong = song;
   },
   shuffle: function() {
-    // currentSong = songs[Math.floor.rand(songs.length);
+    // currentSong = playlist[Math.floor.rand playlist.length);
     // change(currentSong);
     console.log("Juicebox is shuffleing");
   },
   skip: function() {
-    // if (currentSong < songs.length) songs +1;
-    // currentSong = songs[i+1];
+    // if (currentSong < playlist.length) playlist +1;
+    // currentSong = playlist[i+1];
     // change(currentSong);
   },
   back: function() {
@@ -120,7 +121,7 @@ var Juicebox = {
     }
   },
   addSong: function(path) {
-    this.songs.push(new Song(path));
+    this.playlist.push(new Song(path));
   },
 
 };
@@ -152,12 +153,12 @@ $(document).ready(function() {
 });
 
 // to do list:
-// connect logic to status bar, toggle isPlaying t/f and check within the sb function
+// connect logic to progress bar, toggle isPlaying t/f and check within the sb function
 // toggle between play & pause
 
 
 // ****** Someday
-// make status bar interactive and clickable, advance track.
+// make progress bar interactive and clickable, advance track.
 
 
 
