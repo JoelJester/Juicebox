@@ -18,6 +18,7 @@ var Juicebox = {
       stop: $(".js-song-controls .stop"),
       skip: $(".js-song-controls .skip"),
       mute: $(".js-song-controls .mute"),
+      upload: $(".js-upload-display"),
       progressBar: $(".js-progress-hide")[0],
     };
     this.addSong("./assets/audio/gcThaMessage.mp3");
@@ -40,6 +41,12 @@ var Juicebox = {
     this.dom.skip.on("click", this.skip.bind(this));
     // this.dom.pause.on("click", this.pause.bind(this));
     this.dom.mute.on("click", this.setVolume.bind(this));
+    this.dom.upload.on("change", function(){
+      var files = this.dom.upload.prop("files");
+      console.log(files[0]);
+      var file = URL.createObjectURL(files[0]);
+      this.addSong(file);
+    }.bind(this));
   },
 
   render: function() {
@@ -93,14 +100,32 @@ var Juicebox = {
     console.log("Juicebox is shuffleing");
   },
   skip: function() {
+    var index = this.playlist.indexOf(this.currentSong);
+    console.log(index);
+    if (this.currentSong) {
+      this.currentSong.stop();
+      if ( index < this.playlist.length ) {
+        // this.currentSong.stop();
+        song = this.playlist[index + 1]
+        console.log(song);
+        this.currentSong = song;
+        this.currentSong.play();
+      } else {
+        this.currentSong.play(playlist[0]);
+      }
+    }
     // if (currentSong < playlist.length) playlist +1;
     // currentSong = playlist[i+1];
     // change(currentSong);
   },
   back: function() {
+    console.log(this.currentSong.audio.currentTime)
     if ( this.isPlaying === true ) {
       this.currentSong.stop();
       this.currentSong.play();
+    } else if ( this.currentSong.audio.currentTime > 0 ){
+      this.currentSong.stop();
+      this.render();
     }
   },
   setVolume: function() {
@@ -123,7 +148,6 @@ var Juicebox = {
   addSong: function(path) {
     this.playlist.push(new Song(path));
   },
-
 };
 
 class Song {
@@ -141,10 +165,27 @@ class Song {
     this.audio.pause();
     this.audio.currentTime = 0;
   };
-  // ?build a reset song function on thw song object?
+  // ?build a reset song function on the song object?
 }
 // params for song object; file, title, artist, artwork
 
+// a function to display the song information when hovered:
+$(document).ready(function() {
+// var clickable = document.querySelectorAll(".display-info")[0];
+//
+// clickable.addEventListener("click", function(){
+//   console.log("clicked");
+// })
+
+var jsHexagons = document.querySelectorAll(".js-song-info");
+jsHexagons.forEach(function(element){
+  $(element).on("click",function(event){
+    console.log(event.target);
+    event.target.removeClass("hidden");
+  })
+})
+
+})
 
 $(document).ready(function() {
   Juicebox.start();

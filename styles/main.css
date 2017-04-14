@@ -32,6 +32,7 @@
   height: 100%;
   background: green;
   transform: rotate(-60deg);
+  position: relative;
   overflow: hidden;
 }
 .hexagon-image {
@@ -42,11 +43,38 @@
   overflow: hidden;
   visibility: visible;
 }
+.display-info .hidden {
+  display: none;
+}
 .display-images li {
   transform: rotate(-15deg);
   margin-left: -170px;
 }
+ul.display-info {
+  width: 210px;
+  height: 210px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 95px;
 
+}
+ul.display-info li, input {
+  height: 1.25em;
+  padding: 3px;
+  background-color: black;
+  display: inline-block;
+  color: white;
+  transform: rotate(120deg);
+  visibility: visible;
+  position: absolute;
+  top: 30px;
+  right: 50px;
+}
+display-info input {
+  transform: rotate(30deg);
+}
 /*
   == Display current track and playlist information
   in a side panel.

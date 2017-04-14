@@ -16,22 +16,40 @@
       <ul class="display-images js-hex-images">
         <li class="hexagon">
           <div class="hexagon-inside">
-            <div class="hexagon-image"></div>
+            <div class="hexagon-image">
+              <ul class="display-info js-song-info">
+                <li class="display-info js-display-track">Test info track name</li>
+                <li class="display-info js-display-artist">Sample text, artist goes here</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="hexagon">
+          <div class="hexagon-inside">
+            <div class="hexagon-image">
+              <ul class="display-info js-song-info">
+                <li class="display-info js-display-track">Test info track name</li>
+                <li class="display-info js-display-artist">Sample text, artist goes here</li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="hexagon">
+          <div class="hexagon-inside">
+            <div class="hexagon-image">
+              <ul class="display-info js-upload">
+                <li class="display-info" js-upload-display>Upload your own track
+                  <input class="js-upload-display" type="file" accept="audio/*" />
+                </li>
+              </ul>
+            </div>
           </div>
         </li>
         <li class="hexagon">
           <div class="hexagon-inside">
             <div class="hexagon-image"></div>
-          </div>
-        </li>
-        <li class="hexagon">
-          <div class="hexagon-inside">
-            <div class="hexagon-image"></div>
-          </div>
-        </li>
-        <li class="hexagon">
-          <div class="hexagon-inside">
-            <div class="hexagon-image"></div>
+            <div class="display-info js-display-track">Test info track name</div>
+            <div class="display-info js-display-artist">Sample text, artist goes here</div>
           </div>
         </li>
       </ul> <!-- closes display-images which contains all of the hex photos -->
@@ -42,6 +60,8 @@
 
 
       </div>
+      <!-- this will display the current playlist. Elements will be populated by js -->
+      <div class="display-playlist js-current-playlist"></div>
       <div class="song-controls js-song-controls">
         <button class="back controls">Back</button>
         <button class="play controls">Play</button>
