@@ -22,6 +22,7 @@ var Juicebox = {
       progressBar: $(".js-progress-hide")[0],
     };
     this.addSong("./assets/audio/gcThaMessage.mp3");
+    this.addSong("./assets/audio/02Sean.mp3");
     this.listen();
     this.change(this.playlist[0]);
 
@@ -67,15 +68,15 @@ var Juicebox = {
 
   play: function(song) {
     if (this.isPlaying === false ) {
-    this.currentSong.play();
-    this.isPlaying = true;
-    this.dom.play.html("Pause");
-    this.render();
-  } else {
-    this.currentSong.pause();
-    this.isPlaying = false;
-    this.dom.play.html("Play");
-  }
+      this.currentSong.play();
+      this.isPlaying = true;
+      this.dom.play.html("Pause");
+      this.render();
+    } else {
+      this.currentSong.pause();
+      this.isPlaying = false;
+      this.dom.play.html("Play");
+    }
   },
   pause: function() {
     console.log(pause);
@@ -101,17 +102,16 @@ var Juicebox = {
   },
   skip: function() {
     var index = this.playlist.indexOf(this.currentSong);
-    console.log(index);
     if (this.currentSong) {
       this.currentSong.stop();
-      if ( index < this.playlist.length ) {
+      if ( index < this.playlist.length - 1) {
         // this.currentSong.stop();
         song = this.playlist[index + 1]
-        console.log(song);
         this.currentSong = song;
         this.currentSong.play();
       } else {
-        this.currentSong.play(playlist[0]);
+        this.currentSong = this.playlist[0];
+        this.currentSong.play();
       }
     }
     // if (currentSong < playlist.length) playlist +1;
@@ -119,7 +119,6 @@ var Juicebox = {
     // change(currentSong);
   },
   back: function() {
-    console.log(this.currentSong.audio.currentTime)
     if ( this.isPlaying === true ) {
       this.currentSong.stop();
       this.currentSong.play();
@@ -165,7 +164,6 @@ class Song {
     this.audio.pause();
     this.audio.currentTime = 0;
   };
-  // ?build a reset song function on the song object?
 }
 // params for song object; file, title, artist, artwork
 
